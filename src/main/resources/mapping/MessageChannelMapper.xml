@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sqldemo.dao.MessageChannelMapper">
+  <resultMap id="BaseResultMap" type="sqldemo.model.MessageChannel">
+    <id column="MessagechannelID" jdbcType="INTEGER" property="messagechannelid" />
+    <result column="In_buffer" jdbcType="INTEGER" property="inBuffer" />
+    <result column="Out_buffer" jdbcType="INTEGER" property="outBuffer" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    MessagechannelID, In_buffer, Out_buffer
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from messagechannel
+    where MessagechannelID = #{messagechannelid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from messagechannel
+    where MessagechannelID = #{messagechannelid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="sqldemo.model.MessageChannel">
+    insert into messagechannel (MessagechannelID, In_buffer, Out_buffer
+      )
+    values (#{messagechannelid,jdbcType=INTEGER}, #{inBuffer,jdbcType=INTEGER}, #{outBuffer,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="sqldemo.model.MessageChannel">
+    insert into messagechannel
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="messagechannelid != null">
+        MessagechannelID,
+      </if>
+      <if test="inBuffer != null">
+        In_buffer,
+      </if>
+      <if test="outBuffer != null">
+        Out_buffer,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="messagechannelid != null">
+        #{messagechannelid,jdbcType=INTEGER},
+      </if>
+      <if test="inBuffer != null">
+        #{inBuffer,jdbcType=INTEGER},
+      </if>
+      <if test="outBuffer != null">
+        #{outBuffer,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="sqldemo.model.MessageChannel">
+    update messagechannel
+    <set>
+      <if test="inBuffer != null">
+        In_buffer = #{inBuffer,jdbcType=INTEGER},
+      </if>
+      <if test="outBuffer != null">
+        Out_buffer = #{outBuffer,jdbcType=INTEGER},
+      </if>
+    </set>
+    where MessagechannelID = #{messagechannelid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="sqldemo.model.MessageChannel">
+    update messagechannel
+    set In_buffer = #{inBuffer,jdbcType=INTEGER},
+      Out_buffer = #{outBuffer,jdbcType=INTEGER}
+    where MessagechannelID = #{messagechannelid,jdbcType=INTEGER}
+  </update>
+</mapper>

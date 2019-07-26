@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sqldemo.dao.InvocationChannelMapper">
+  <resultMap id="BaseResultMap" type="sqldemo.model.InvocationChannel">
+    <id column="InvocationchannelID" jdbcType="INTEGER" property="invocationchannelid" />
+    <result column="Crossdomain" jdbcType="BIT" property="crossdomain" />
+    <result column="PartitionID" jdbcType="INTEGER" property="partitionid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    InvocationchannelID, Crossdomain, PartitionID
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from invocationchannel
+    where InvocationchannelID = #{invocationchannelid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from invocationchannel
+    where InvocationchannelID = #{invocationchannelid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="sqldemo.model.InvocationChannel">
+    insert into invocationchannel (InvocationchannelID, Crossdomain, PartitionID
+      )
+    values (#{invocationchannelid,jdbcType=INTEGER}, #{crossdomain,jdbcType=BIT}, #{partitionid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="sqldemo.model.InvocationChannel">
+    insert into invocationchannel
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="invocationchannelid != null">
+        InvocationchannelID,
+      </if>
+      <if test="crossdomain != null">
+        Crossdomain,
+      </if>
+      <if test="partitionid != null">
+        PartitionID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="invocationchannelid != null">
+        #{invocationchannelid,jdbcType=INTEGER},
+      </if>
+      <if test="crossdomain != null">
+        #{crossdomain,jdbcType=BIT},
+      </if>
+      <if test="partitionid != null">
+        #{partitionid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="sqldemo.model.InvocationChannel">
+    update invocationchannel
+    <set>
+      <if test="crossdomain != null">
+        Crossdomain = #{crossdomain,jdbcType=BIT},
+      </if>
+      <if test="partitionid != null">
+        PartitionID = #{partitionid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where InvocationchannelID = #{invocationchannelid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="sqldemo.model.InvocationChannel">
+    update invocationchannel
+    set Crossdomain = #{crossdomain,jdbcType=BIT},
+      PartitionID = #{partitionid,jdbcType=INTEGER}
+    where InvocationchannelID = #{invocationchannelid,jdbcType=INTEGER}
+  </update>
+</mapper>

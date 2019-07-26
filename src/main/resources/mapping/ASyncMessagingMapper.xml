@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sqldemo.dao.ASyncMessagingMapper">
+  <resultMap id="BaseResultMap" type="sqldemo.model.ASyncMessaging">
+    <id column="AsyncmessagingID" jdbcType="INTEGER" property="asyncmessagingid" />
+    <result column="Message" jdbcType="VARCHAR" property="message" />
+    <result column="Port" jdbcType="INTEGER" property="port" />
+    <result column="Ptc" jdbcType="VARCHAR" property="ptc" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    AsyncmessagingID, Message, Port, Ptc
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from asyncmessaging
+    where AsyncmessagingID = #{asyncmessagingid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from asyncmessaging
+    where AsyncmessagingID = #{asyncmessagingid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="sqldemo.model.ASyncMessaging">
+    insert into asyncmessaging (AsyncmessagingID, Message, Port, 
+      Ptc)
+    values (#{asyncmessagingid,jdbcType=INTEGER}, #{message,jdbcType=VARCHAR}, #{port,jdbcType=INTEGER}, 
+      #{ptc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="sqldemo.model.ASyncMessaging">
+    insert into asyncmessaging
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="asyncmessagingid != null">
+        AsyncmessagingID,
+      </if>
+      <if test="message != null">
+        Message,
+      </if>
+      <if test="port != null">
+        Port,
+      </if>
+      <if test="ptc != null">
+        Ptc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="asyncmessagingid != null">
+        #{asyncmessagingid,jdbcType=INTEGER},
+      </if>
+      <if test="message != null">
+        #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="port != null">
+        #{port,jdbcType=INTEGER},
+      </if>
+      <if test="ptc != null">
+        #{ptc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="sqldemo.model.ASyncMessaging">
+    update asyncmessaging
+    <set>
+      <if test="message != null">
+        Message = #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="port != null">
+        Port = #{port,jdbcType=INTEGER},
+      </if>
+      <if test="ptc != null">
+        Ptc = #{ptc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where AsyncmessagingID = #{asyncmessagingid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="sqldemo.model.ASyncMessaging">
+    update asyncmessaging
+    set Message = #{message,jdbcType=VARCHAR},
+      Port = #{port,jdbcType=INTEGER},
+      Ptc = #{ptc,jdbcType=VARCHAR}
+    where AsyncmessagingID = #{asyncmessagingid,jdbcType=INTEGER}
+  </update>
+</mapper>

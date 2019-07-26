@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sqldemo.dao.shareddataaccessMapper">
+  <resultMap id="BaseResultMap" type="sqldemo.model.shareddataaccess">
+    <id column="ShareddataaccessID" jdbcType="INTEGER" property="shareddataaccessid" />
+    <result column="Cache" jdbcType="INTEGER" property="cache" />
+    <result column="Delay" jdbcType="VARCHAR" property="delay" />
+    <result column="Mode" jdbcType="VARCHAR" property="mode" />
+    <result column="shared" jdbcType="INTEGER" property="shared" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ShareddataaccessID, Cache, Delay, Mode, shared
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from shareddataaccess
+    where ShareddataaccessID = #{shareddataaccessid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from shareddataaccess
+    where ShareddataaccessID = #{shareddataaccessid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="sqldemo.model.shareddataaccess">
+    insert into shareddataaccess (ShareddataaccessID, Cache, Delay, 
+      Mode, shared)
+    values (#{shareddataaccessid,jdbcType=INTEGER}, #{cache,jdbcType=INTEGER}, #{delay,jdbcType=VARCHAR}, 
+      #{mode,jdbcType=VARCHAR}, #{shared,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="sqldemo.model.shareddataaccess">
+    insert into shareddataaccess
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="shareddataaccessid != null">
+        ShareddataaccessID,
+      </if>
+      <if test="cache != null">
+        Cache,
+      </if>
+      <if test="delay != null">
+        Delay,
+      </if>
+      <if test="mode != null">
+        Mode,
+      </if>
+      <if test="shared != null">
+        shared,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="shareddataaccessid != null">
+        #{shareddataaccessid,jdbcType=INTEGER},
+      </if>
+      <if test="cache != null">
+        #{cache,jdbcType=INTEGER},
+      </if>
+      <if test="delay != null">
+        #{delay,jdbcType=VARCHAR},
+      </if>
+      <if test="mode != null">
+        #{mode,jdbcType=VARCHAR},
+      </if>
+      <if test="shared != null">
+        #{shared,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="sqldemo.model.shareddataaccess">
+    update shareddataaccess
+    <set>
+      <if test="cache != null">
+        Cache = #{cache,jdbcType=INTEGER},
+      </if>
+      <if test="delay != null">
+        Delay = #{delay,jdbcType=VARCHAR},
+      </if>
+      <if test="mode != null">
+        Mode = #{mode,jdbcType=VARCHAR},
+      </if>
+      <if test="shared != null">
+        shared = #{shared,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ShareddataaccessID = #{shareddataaccessid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="sqldemo.model.shareddataaccess">
+    update shareddataaccess
+    set Cache = #{cache,jdbcType=INTEGER},
+      Delay = #{delay,jdbcType=VARCHAR},
+      Mode = #{mode,jdbcType=VARCHAR},
+      shared = #{shared,jdbcType=INTEGER}
+    where ShareddataaccessID = #{shareddataaccessid,jdbcType=INTEGER}
+  </update>
+</mapper>

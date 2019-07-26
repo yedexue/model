@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sqldemo.dao.syncinterfaceMapper">
+  <resultMap id="BaseResultMap" type="sqldemo.model.syncinterface">
+    <id column="SyncinterfaceID" jdbcType="INTEGER" property="syncinterfaceid" />
+    <result column="Delay" jdbcType="VARCHAR" property="delay" />
+    <result column="Paralist" jdbcType="VARCHAR" property="paralist" />
+    <result column="Return" jdbcType="VARCHAR" property="return" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    SyncinterfaceID, Delay, Paralist, Return
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from syncinterface
+    where SyncinterfaceID = #{syncinterfaceid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from syncinterface
+    where SyncinterfaceID = #{syncinterfaceid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="sqldemo.model.syncinterface">
+    insert into syncinterface (SyncinterfaceID, Delay, Paralist, 
+      Return)
+    values (#{syncinterfaceid,jdbcType=INTEGER}, #{delay,jdbcType=VARCHAR}, #{paralist,jdbcType=VARCHAR}, 
+      #{return,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="sqldemo.model.syncinterface">
+    insert into syncinterface
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="syncinterfaceid != null">
+        SyncinterfaceID,
+      </if>
+      <if test="delay != null">
+        Delay,
+      </if>
+      <if test="paralist != null">
+        Paralist,
+      </if>
+      <if test="return != null">
+        Return,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="syncinterfaceid != null">
+        #{syncinterfaceid,jdbcType=INTEGER},
+      </if>
+      <if test="delay != null">
+        #{delay,jdbcType=VARCHAR},
+      </if>
+      <if test="paralist != null">
+        #{paralist,jdbcType=VARCHAR},
+      </if>
+      <if test="return != null">
+        #{return,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="sqldemo.model.syncinterface">
+    update syncinterface
+    <set>
+      <if test="delay != null">
+        Delay = #{delay,jdbcType=VARCHAR},
+      </if>
+      <if test="paralist != null">
+        Paralist = #{paralist,jdbcType=VARCHAR},
+      </if>
+      <if test="return != null">
+        Return = #{return,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where SyncinterfaceID = #{syncinterfaceid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="sqldemo.model.syncinterface">
+    update syncinterface
+    set Delay = #{delay,jdbcType=VARCHAR},
+      Paralist = #{paralist,jdbcType=VARCHAR},
+      Return = #{return,jdbcType=VARCHAR}
+    where SyncinterfaceID = #{syncinterfaceid,jdbcType=INTEGER}
+  </update>
+</mapper>

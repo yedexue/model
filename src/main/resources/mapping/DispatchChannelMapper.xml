@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sqldemo.dao.DispatchChannelMapper">
+  <resultMap id="BaseResultMap" type="sqldemo.model.DispatchChannel">
+    <id column="DispatchchannelID" jdbcType="INTEGER" property="dispatchchannelid" />
+    <result column="Time_trigger" jdbcType="BIT" property="timeTrigger" />
+    <result column="PartitionID" jdbcType="INTEGER" property="partitionid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    DispatchchannelID, Time_trigger, PartitionID
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dispatchchannel
+    where DispatchchannelID = #{dispatchchannelid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from dispatchchannel
+    where DispatchchannelID = #{dispatchchannelid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="sqldemo.model.DispatchChannel">
+    insert into dispatchchannel (DispatchchannelID, Time_trigger, PartitionID
+      )
+    values (#{dispatchchannelid,jdbcType=INTEGER}, #{timeTrigger,jdbcType=BIT}, #{partitionid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="sqldemo.model.DispatchChannel">
+    insert into dispatchchannel
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dispatchchannelid != null">
+        DispatchchannelID,
+      </if>
+      <if test="timeTrigger != null">
+        Time_trigger,
+      </if>
+      <if test="partitionid != null">
+        PartitionID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dispatchchannelid != null">
+        #{dispatchchannelid,jdbcType=INTEGER},
+      </if>
+      <if test="timeTrigger != null">
+        #{timeTrigger,jdbcType=BIT},
+      </if>
+      <if test="partitionid != null">
+        #{partitionid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="sqldemo.model.DispatchChannel">
+    update dispatchchannel
+    <set>
+      <if test="timeTrigger != null">
+        Time_trigger = #{timeTrigger,jdbcType=BIT},
+      </if>
+      <if test="partitionid != null">
+        PartitionID = #{partitionid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where DispatchchannelID = #{dispatchchannelid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="sqldemo.model.DispatchChannel">
+    update dispatchchannel
+    set Time_trigger = #{timeTrigger,jdbcType=BIT},
+      PartitionID = #{partitionid,jdbcType=INTEGER}
+    where DispatchchannelID = #{dispatchchannelid,jdbcType=INTEGER}
+  </update>
+</mapper>

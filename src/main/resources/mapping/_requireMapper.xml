@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sqldemo.dao._requireMapper">
+  <resultMap id="BaseResultMap" type="sqldemo.model._require">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="requirer" jdbcType="INTEGER" property="requirer" />
+    <result column="required" jdbcType="INTEGER" property="required" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, requirer, required
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from linkpointcomponent_r
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByportid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+*    from linkpointcomponent_r
+    where required = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from linkpointcomponent_r
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="sqldemo.model._require">
+    insert into linkpointcomponent_r (ID, requirer, required
+      )
+    values (#{id,jdbcType=INTEGER}, #{requirer,jdbcType=INTEGER}, #{required,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="sqldemo.model._require">
+    insert into linkpointcomponent_r
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="requirer != null">
+        requirer,
+      </if>
+      <if test="required != null">
+        required,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="requirer != null">
+        #{requirer,jdbcType=INTEGER},
+      </if>
+      <if test="required != null">
+        #{required,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="sqldemo.model._require">
+    update linkpointcomponent_r
+    <set>
+      <if test="requirer != null">
+        requirer = #{requirer,jdbcType=INTEGER},
+      </if>
+      <if test="required != null">
+        required = #{required,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="sqldemo.model._require">
+    update linkpointcomponent_r
+    set requirer = #{requirer,jdbcType=INTEGER},
+      required = #{required,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
